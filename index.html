@@ -117,39 +117,30 @@
   .btn-ghost{color:var(--text);}
   .btn-ghost:hover{border-color:var(--accent);color:var(--accent);}
 
-  /* JSON CARD */
-  .json-card{
-    background:var(--surface);
+  /* PHOTO FRAME */
+  .photo-frame{
+    position:relative;
     border:1px solid var(--border);
     border-radius:6px;
     overflow:hidden;
-    box-shadow:0 30px 60px -20px rgba(0,0,0,0.5);
+    box-shadow:0 30px 60px -20px rgba(0,0,0,0.55);
+    background:var(--surface);
+    aspect-ratio:4/5;
+    max-width:420px;
+    margin-left:auto;
   }
-  .json-titlebar{
-    display:flex;align-items:center;gap:8px;
-    padding:12px 16px;border-bottom:1px solid var(--border-soft);
-    background:var(--bg-alt);
+  .photo-frame-img{width:100%;height:100%;object-fit:cover;display:block;filter:saturate(0.95) contrast(1.02);}
+  .photo-frame::after{
+    content:"";position:absolute;inset:0;
+    background:linear-gradient(180deg, rgba(15,23,18,0) 55%, rgba(15,23,18,0.65) 100%);
+    pointer-events:none;
   }
-  .json-titlebar span{width:10px;height:10px;border-radius:50%;background:var(--border);}
-  .json-titlebar .fname{margin-left:8px;font-family:var(--mono);font-size:12px;color:var(--text-faint);}
-  .json-body{padding:22px 20px;font-family:var(--mono);font-size:13.5px;line-height:1.9;}
-  .json-body .avatar{
-    width:56px;height:56px;border-radius:50%;object-fit:cover;
-    border:2px solid var(--accent-soft);margin-bottom:14px;display:block;
-  }
-  .k{color:var(--accent-2);}
-  .v{color:var(--text);}
-  .s{color:var(--accent);}
-  .punc{color:var(--text-faint);}
-  .cursor{display:inline-block;width:7px;height:14px;background:var(--accent);margin-left:2px;animation:blink 1s step-end infinite;vertical-align:middle;}
-  @keyframes blink{50%{opacity:0;}}
-  .json-list{list-style:none;}
-  .json-list li{padding-left:2px;}
-  .indent{padding-left:20px;}
-  .tag-inline{
-    display:inline-block;background:var(--surface-2);color:var(--text-dim);
-    font-size:11px;padding:2px 8px;border-radius:20px;margin:2px 4px 2px 0;
-    border:1px solid var(--border);
+  .photo-frame-tag{
+    position:absolute;left:16px;bottom:16px;z-index:2;
+    font-family:var(--mono);font-size:12px;color:var(--text);
+    background:rgba(15,23,18,0.55);backdrop-filter:blur(6px);
+    border:1px solid var(--border);border-radius:20px;
+    padding:6px 14px;display:flex;align-items:center;gap:8px;
   }
 
   /* ABOUT */
@@ -286,12 +277,9 @@
       </div>
     </div>
 
-    <div class="json-card">
-      <div class="json-titlebar">
-        <span style="background:#e5605a;"></span><span style="background:#e5b95a;"></span><span style="background:#5ac278;"></span>
-        <span class="fname">profile.json</span>
-      </div>
-      <div class="json-body" id="json-body"></div>
+    <div class="photo-frame">
+      <img class="photo-frame-img" src="profile.jpg" alt="Nikita Akhade">
+      <div class="photo-frame-tag"><span class="status-dot" style="position:relative;top:0;"></span>open_to_work</div>
     </div>
   </section>
 
@@ -489,19 +477,6 @@
   const LINKEDIN_URL = "https://www.linkedin.com/in/nikita-akhade";
   document.getElementById('linkedin-link').href = LINKEDIN_URL;
   document.getElementById('linkedin-row').href = LINKEDIN_URL;
-
-  // typing JSON hero
-  const jsonBody = document.getElementById('json-body');
-  const html = `<img class="avatar" src="profile.jpg" alt="Nikita Akhade">` +
-    `<span class="punc">{</span>\n` +
-    `<span class="indent"><span class="k">"name"</span><span class="punc">:</span> <span class="s">"Nikita Akhade"</span><span class="punc">,</span></span>\n` +
-    `<span class="indent"><span class="k">"role"</span><span class="punc">:</span> <span class="s">"Java Backend Developer"</span><span class="punc">,</span></span>\n` +
-    `<span class="indent"><span class="k">"experience"</span><span class="punc">:</span> <span class="v">"4+ years"</span><span class="punc">,</span></span>\n` +
-    `<span class="indent"><span class="k">"stack"</span><span class="punc">:</span> <span class="punc">[</span><span class="s">"Java"</span><span class="punc">,</span> <span class="s">"Spring Boot"</span><span class="punc">,</span> <span class="s">"PostgreSQL"</span><span class="punc">,</span> <span class="s">"AWS"</span><span class="punc">]</span><span class="punc">,</span></span>\n` +
-    `<span class="indent"><span class="k">"location"</span><span class="punc">:</span> <span class="s">"Stuttgart, DE"</span><span class="punc">,</span></span>\n` +
-    `<span class="indent"><span class="k">"status"</span><span class="punc">:</span> <span class="s">"open_to_work"</span></span>\n` +
-    `<span class="punc">}</span><span class="cursor"></span>`;
-  jsonBody.innerHTML = html;
 
   // scroll reveal
   const observer = new IntersectionObserver((entries)=>{
