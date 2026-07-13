@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nikita Akhade — Software Engineer</title>
+<meta name="description" content="Nikita Akhade — Java Backend Developer specialising in Spring Boot, PostgreSQL and cloud-native systems.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0F1712;
+    --bg-alt:#131F19;
+    --surface:#182620;
+    --surface-2:#1F312A;
+    --border:#2B3C33;
+    --border-soft:#233129;
+    --text:#EBEBE1;
+    --text-dim:#9FAFA3;
+    --text-faint:#71827A;
+    --accent:#93B67C;
+    --accent-soft:#5F7A54;
+    --accent-2:#D9AC5E;
+    --radius:3px;
+    --mono:'IBM Plex Mono',monospace;
+    --sans:'IBM Plex Sans',sans-serif;
+    --serif:'Fraunces',serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--sans);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  body::before{
+    content:"";
+    position:fixed;inset:0;
+    background-image:
+      linear-gradient(var(--border-soft) 1px, transparent 1px),
+      linear-gradient(90deg, var(--border-soft) 1px, transparent 1px);
+    background-size:64px 64px;
+    opacity:0.15;
+    pointer-events:none;
+    z-index:0;
+  }
+  a{color:inherit;text-decoration:none;}
+  ::selection{background:var(--accent-soft);color:#fff;}
+
+  .wrap{max-width:1080px;margin:0 auto;padding:0 32px;position:relative;z-index:1;}
+  section{padding:120px 0;border-bottom:1px solid var(--border-soft);}
+  section:last-of-type{border-bottom:none;}
+
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:12.5px;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:var(--accent);
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:18px;
+  }
+  .eyebrow::before{content:"";width:18px;height:1px;background:var(--accent);display:inline-block;}
+  h1,h2,h3{font-family:var(--serif);font-weight:600;letter-spacing:-0.01em;}
+  h2{font-size:clamp(28px,4vw,38px);color:var(--text);margin-bottom:48px;}
+  .section-head{max-width:640px;}
+  .section-sub{color:var(--text-dim);font-size:16px;margin-top:-28px;margin-bottom:48px;}
+
+  /* NAV */
+  header{
+    position:fixed;top:0;left:0;right:0;z-index:50;
+    background:rgba(15,23,18,0.82);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--border-soft);
+  }
+  nav{
+    max-width:1080px;margin:0 auto;padding:0 32px;
+    height:66px;display:flex;align-items:center;justify-content:space-between;
+  }
+  .logo{font-family:var(--mono);font-weight:600;font-size:15px;color:var(--text);display:flex;align-items:center;gap:8px;}
+  .logo .dot{width:7px;height:7px;background:var(--accent);border-radius:50%;box-shadow:0 0 8px var(--accent);}
+  .nav-links{display:flex;gap:36px;font-family:var(--mono);font-size:13px;color:var(--text-dim);}
+  .nav-links a{position:relative;padding:4px 0;transition:color .2s;}
+  .nav-links a:hover{color:var(--text);}
+  .nav-links a::after{content:"";position:absolute;left:0;bottom:0;width:0;height:1px;background:var(--accent);transition:width .25s;}
+  .nav-links a:hover::after{width:100%;}
+  .nav-cta{font-family:var(--mono);font-size:12.5px;border:1px solid var(--border);padding:8px 16px;border-radius:var(--radius);color:var(--accent);transition:all .2s;white-space:nowrap;}
+  .nav-cta:hover{background:var(--accent);color:var(--bg);border-color:var(--accent);}
+  .nav-toggle{display:none;}
+
+  /* HERO */
+  .hero{
+    padding:170px 0 110px;
+    display:grid;grid-template-columns:1.05fr 0.95fr;gap:64px;align-items:center;
+    border-bottom:1px solid var(--border-soft);
+  }
+  .hero-eyebrow{font-family:var(--mono);font-size:13px;color:var(--accent);letter-spacing:.08em;margin-bottom:22px;display:flex;align-items:center;gap:10px;}
+  .status-dot{width:8px;height:8px;border-radius:50%;background:var(--accent);position:relative;}
+  .status-dot::after{content:"";position:absolute;inset:-4px;border-radius:50%;border:1px solid var(--accent);animation:pulse 2s infinite;}
+  @keyframes pulse{0%{transform:scale(0.6);opacity:1;}100%{transform:scale(1.8);opacity:0;}}
+  .hero h1{font-size:clamp(40px,6vw,64px);line-height:1.04;color:var(--text);margin-bottom:8px;}
+  .hero h1 span{color:var(--accent);}
+  .hero-role{font-family:var(--mono);font-size:16px;color:var(--text-dim);margin-bottom:24px;}
+  .hero-desc{font-size:17px;color:var(--text-dim);max-width:480px;margin-bottom:34px;}
+  .hero-actions{display:flex;gap:14px;flex-wrap:wrap;}
+  .btn{
+    font-family:var(--mono);font-size:13px;padding:13px 22px;border-radius:var(--radius);
+    border:1px solid var(--border);transition:all .2s;display:inline-flex;align-items:center;gap:8px;
+  }
+  .btn-primary{background:var(--accent);color:var(--bg);border-color:var(--accent);font-weight:600;}
+  .btn-primary:hover{background:#a7c793;}
+  .btn-ghost{color:var(--text);}
+  .btn-ghost:hover{border-color:var(--accent);color:var(--accent);}
+
+  /* JSON CARD */
+  .json-card{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:6px;
+    overflow:hidden;
+    box-shadow:0 30px 60px -20px rgba(0,0,0,0.5);
+  }
+  .json-titlebar{
+    display:flex;align-items:center;gap:8px;
+    padding:12px 16px;border-bottom:1px solid var(--border-soft);
+    background:var(--bg-alt);
+  }
+  .json-titlebar span{width:10px;height:10px;border-radius:50%;background:var(--border);}
+  .json-titlebar .fname{margin-left:8px;font-family:var(--mono);font-size:12px;color:var(--text-faint);}
+  .json-body{padding:22px 20px;font-family:var(--mono);font-size:13.5px;line-height:1.9;}
+  .json-body .avatar{
+    width:56px;height:56px;border-radius:50%;object-fit:cover;
+    border:2px solid var(--accent-soft);margin-bottom:14px;display:block;
+  }
+  .k{color:var(--accent-2);}
+  .v{color:var(--text);}
+  .s{color:var(--accent);}
+  .punc{color:var(--text-faint);}
+  .cursor{display:inline-block;width:7px;height:14px;background:var(--accent);margin-left:2px;animation:blink 1s step-end infinite;vertical-align:middle;}
+  @keyframes blink{50%{opacity:0;}}
+  .json-list{list-style:none;}
+  .json-list li{padding-left:2px;}
+  .indent{padding-left:20px;}
+  .tag-inline{
+    display:inline-block;background:var(--surface-2);color:var(--text-dim);
+    font-size:11px;padding:2px 8px;border-radius:20px;margin:2px 4px 2px 0;
+    border:1px solid var(--border);
+  }
+
+  /* ABOUT */
+  .about-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:56px;}
+  .about-text p{color:var(--text-dim);font-size:16px;margin-bottom:16px;max-width:560px;}
+  .stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border-soft);border:1px solid var(--border-soft);}
+  .stat{background:var(--bg);padding:24px 20px;}
+  .stat .num{font-family:var(--serif);font-size:32px;color:var(--accent);}
+  .stat .lbl{font-family:var(--mono);font-size:11.5px;color:var(--text-faint);letter-spacing:.05em;text-transform:uppercase;margin-top:4px;}
+
+  /* EXPERIENCE — git log style */
+  .log{position:relative;padding-left:32px;}
+  .log::before{content:"";position:absolute;left:5px;top:6px;bottom:6px;width:1px;background:var(--border);}
+  .commit{position:relative;padding-bottom:44px;}
+  .commit:last-child{padding-bottom:0;}
+  .commit-dot{
+    position:absolute;left:-32px;top:4px;width:11px;height:11px;border-radius:50%;
+    background:var(--bg);border:2px solid var(--accent);
+  }
+  .commit-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px;margin-bottom:6px;}
+  .commit-hash{font-family:var(--mono);font-size:12px;color:var(--accent-2);}
+  .commit-role{font-family:var(--serif);font-size:21px;color:var(--text);}
+  .commit-meta{font-family:var(--mono);font-size:12px;color:var(--text-faint);margin-bottom:14px;}
+  .commit-body{color:var(--text-dim);font-size:15px;}
+  .commit-body ul{margin:10px 0 0 18px;}
+  .commit-body li{margin-bottom:6px;}
+  .stack-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px;}
+  .stack-tag{
+    font-family:var(--mono);font-size:11.5px;color:var(--accent);
+    border:1px solid var(--border-soft);background:var(--surface);
+    padding:4px 10px;border-radius:20px;
+  }
+
+  /* PROJECTS */
+  .proj-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+  .proj-card{
+    background:var(--surface);border:1px solid var(--border-soft);border-radius:6px;
+    padding:26px 24px;display:flex;flex-direction:column;
+    transition:transform .25s, border-color .25s;
+  }
+  .proj-card:hover{transform:translateY(-4px);border-color:var(--accent-soft);}
+  .proj-index{font-family:var(--mono);font-size:11.5px;color:var(--text-faint);margin-bottom:14px;}
+  .proj-card h3{font-size:19px;color:var(--text);margin-bottom:10px;line-height:1.3;}
+  .proj-card p{color:var(--text-dim);font-size:14px;flex:1;margin-bottom:16px;}
+  .proj-tags{display:flex;flex-wrap:wrap;gap:6px;}
+  .proj-tags span{font-family:var(--mono);font-size:10.5px;color:var(--text-dim);border:1px solid var(--border);padding:3px 8px;border-radius:3px;}
+
+  /* SKILLS */
+  .skills-table{border:1px solid var(--border-soft);border-radius:6px;overflow:hidden;}
+  .skill-row{display:grid;grid-template-columns:180px 1fr;border-bottom:1px solid var(--border-soft);}
+  .skill-row:last-child{border-bottom:none;}
+  .skill-key{
+    font-family:var(--mono);font-size:12px;color:var(--accent-2);
+    padding:18px 20px;background:var(--bg-alt);border-right:1px solid var(--border-soft);
+    display:flex;align-items:center;letter-spacing:.03em;
+  }
+  .skill-val{padding:16px 20px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;}
+  .chip{font-family:var(--mono);font-size:12.5px;color:var(--text);background:var(--surface);border:1px solid var(--border);padding:5px 12px;border-radius:3px;}
+
+  /* EDUCATION + LANGUAGES */
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:56px;}
+  .edu-item{border-left:2px solid var(--border);padding:2px 0 2px 20px;margin-bottom:28px;}
+  .edu-item:last-child{margin-bottom:0;}
+  .edu-item .deg{font-family:var(--serif);font-size:18px;color:var(--text);}
+  .edu-item .inst{color:var(--text-dim);font-size:14px;margin-top:4px;}
+  .edu-item .meta{font-family:var(--mono);font-size:12px;color:var(--text-faint);margin-top:6px;}
+  .lang-item{margin-bottom:18px;}
+  .lang-item:last-child{margin-bottom:0;}
+  .lang-top{display:flex;justify-content:space-between;font-family:var(--mono);font-size:12.5px;margin-bottom:8px;}
+  .lang-top .lname{color:var(--text);}
+  .lang-top .lvl{color:var(--accent);}
+  .lang-bar{height:4px;background:var(--surface-2);border-radius:4px;overflow:hidden;}
+  .lang-fill{height:100%;background:var(--accent);}
+
+  /* CONTACT */
+  .contact-section{text-align:left;}
+  .contact-inner{display:grid;grid-template-columns:1.1fr 0.9fr;gap:56px;align-items:start;}
+  .contact-inner h2{margin-bottom:18px;}
+  .contact-inner p{color:var(--text-dim);font-size:16px;max-width:460px;margin-bottom:30px;}
+  .contact-list{display:flex;flex-direction:column;gap:2px;}
+  .contact-row{
+    display:flex;justify-content:space-between;align-items:center;
+    padding:16px 4px;border-bottom:1px solid var(--border-soft);
+    font-family:var(--mono);font-size:13.5px;transition:padding-left .2s;
+  }
+  .contact-row:hover{padding-left:10px;color:var(--accent);}
+  .contact-row .clabel{color:var(--text-faint);}
+  footer{padding:32px;text-align:center;font-family:var(--mono);font-size:11.5px;color:var(--text-faint);position:relative;z-index:1;}
+
+  .reveal{opacity:0;transform:translateY(18px);transition:opacity .7s ease, transform .7s ease;}
+  .reveal.in{opacity:1;transform:translateY(0);}
+
+  @media (max-width:860px){
+    .nav-links{display:none;}
+    .hero{grid-template-columns:1fr;padding-top:140px;}
+    .about-grid,.split,.contact-inner{grid-template-columns:1fr;}
+    .proj-grid{grid-template-columns:1fr;}
+    .skill-row{grid-template-columns:1fr;}
+    .skill-key{border-right:none;border-bottom:1px solid var(--border-soft);}
+    section{padding:80px 0;}
+    .wrap{padding:0 20px;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <a href="#top" class="logo"><span class="dot"></span>nikita.akhade</a>
+    <div class="nav-links">
+      <a href="#about">about</a>
+      <a href="#experience">experience</a>
+      <a href="#projects">projects</a>
+      <a href="#skills">skills</a>
+      <a href="#contact">contact</a>
+    </div>
+    <a class="nav-cta" href="mailto:nikitaakhade34@gmail.com">say hello →</a>
+  </nav>
+</header>
+
+<div id="top" class="wrap">
+
+  <!-- HERO -->
+  <section class="hero" style="border-top:none;">
+    <div>
+      <div class="hero-eyebrow"><span class="status-dot"></span>open to new opportunities · stuttgart, de</div>
+      <h1>Nikita <span>Akhade</span></h1>
+      <div class="hero-role">Software Engineer — Java Backend Developer</div>
+      <p class="hero-desc">I design and ship scalable backend systems — REST APIs, data models, and cloud infrastructure that hold up under real government and enterprise load. 4+ years turning messy requirements into clean, testable services.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="mailto:nikitaakhade34@gmail.com">Get in touch</a>
+        <a class="btn btn-ghost" href="https://github.com/Nikita-Akhade" target="_blank" rel="noopener">GitHub ↗</a>
+        <a class="btn btn-ghost" href="#" id="linkedin-link" target="_blank" rel="noopener">LinkedIn ↗</a>
+      </div>
+    </div>
+
+    <div class="json-card">
+      <div class="json-titlebar">
+        <span style="background:#e5605a;"></span><span style="background:#e5b95a;"></span><span style="background:#5ac278;"></span>
+        <span class="fname">profile.json</span>
+      </div>
+      <div class="json-body" id="json-body"></div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="eyebrow">01 / about</div>
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <h2 style="margin-bottom:20px;">Backend systems, built to be trusted.</h2>
+        <p>I'm a results-driven Software Engineer with 4+ years of backend development experience using Java, Spring Boot, and PostgreSQL — designing and optimizing scalable, high-performance microservices for enterprise and government systems.</p>
+        <p>I'm comfortable across the stack: REST API design, data modeling, and cloud deployment with AWS, Docker, and Kubernetes, all inside Agile teams that ship. Right now I'm based in Stuttgart, deepening my expertise in professional software engineering and looking for the next system worth building.</p>
+      </div>
+      <div class="stat-grid reveal">
+        <div class="stat"><div class="num">4+</div><div class="lbl">Years Experience</div></div>
+        <div class="stat"><div class="num">3</div><div class="lbl">Major Systems Shipped</div></div>
+        <div class="stat"><div class="num">62</div><div class="lbl">Node SolrCloud Setup</div></div>
+        <div class="stat"><div class="num">4</div><div class="lbl">Languages Spoken</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="eyebrow">02 / experience</div>
+    <h2 class="reveal">Commit history</h2>
+    <div class="log">
+
+      <div class="commit reveal">
+        <div class="commit-dot"></div>
+        <div class="commit-head">
+          <span class="commit-hash">#kis-gmbh</span>
+          <span class="commit-role">Software Development Intern</span>
+        </div>
+        <div class="commit-meta">KIS GmbH · Kaufering, Germany · 04/2026</div>
+        <div class="commit-body">
+          <ul>
+            <li>Software development internship focused on database and backend tasks in a professional German IT environment.</li>
+            <li>Worked extensively with MySQL for data management, querying, and day-to-day database operations supporting internal applications.</li>
+            <li>Analyzed and maintained structured datasets, writing and optimizing SQL for retrieval, validation, and reporting.</li>
+            <li>Supported backend workflows across the application data layer, following version-control and team collaboration standards.</li>
+          </ul>
+          <div class="stack-tags">
+            <span class="stack-tag">MySQL</span><span class="stack-tag">SQL</span><span class="stack-tag">SDLC</span><span class="stack-tag">Git</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="commit reveal">
+        <div class="commit-dot"></div>
+        <div class="commit-head">
+          <span class="commit-hash">#cdac</span>
+          <span class="commit-role">Software Engineer</span>
+        </div>
+        <div class="commit-meta">Centre for Development of Advanced Computing (C-DAC) · Pune, India · 03/2021 – 05/2025</div>
+        <div class="commit-body">
+          <p>Built and maintained backend services for national-scale government platforms — spanning forest-resource management, public health infrastructure, and multilingual search. Full breakdown of each system is in <a href="#projects" style="color:var(--accent);text-decoration:underline;">Featured Projects</a> below.</p>
+          <div class="stack-tags">
+            <span class="stack-tag">Spring Boot</span><span class="stack-tag">PostgreSQL</span><span class="stack-tag">Apache Solr</span><span class="stack-tag">JWT</span><span class="stack-tag">JUnit / Mockito</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="eyebrow">03 / featured projects</div>
+    <h2 class="reveal">Systems in production</h2>
+    <div class="proj-grid">
+
+      <div class="proj-card reveal">
+        <div class="proj-index">01 · eFOREST</div>
+        <h3>Ecological Forest Records Entry System</h3>
+        <p>Secure RESTful backend for automated forest record management — resin production, export permits, TD registers, and damage reports, with role-based access and JWT-secured endpoints. Includes PDF reporting via iText and a schema tuned for complex nested relations.</p>
+        <div class="proj-tags"><span>Spring Boot</span><span>JPA</span><span>PostgreSQL</span><span>iText</span><span>JWT</span></div>
+      </div>
+
+      <div class="proj-card reveal">
+        <div class="proj-index">02 · NHA / HISP</div>
+        <h3>Health Information System Platform</h3>
+        <p>Backend services for India's National Health Authority, managing beneficiary data under Ayushman Bharat PM-JAY across SECC, RSBY, and ADCD modules. Incremental indexing on a 62-node SolrCloud cluster; query tuning and integration testing lifted backend reliability and response times by 30%.</p>
+        <div class="proj-tags"><span>Spring Boot</span><span>Apache Solr</span><span>Tomcat</span><span>REST APIs</span></div>
+      </div>
+
+      <div class="proj-card reveal">
+        <div class="proj-index">03 · Transliteration</div>
+        <h3>Cross-Lingual Name Search Engine</h3>
+        <p>Multilingual search across 14 Indian languages using Apache Solr's phonetic and reverse-transliteration filters, exposed through a Spring Boot API for fast, accurate cross-script name retrieval.</p>
+        <div class="proj-tags"><span>Apache Solr</span><span>Spring Boot</span><span>NLP</span></div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="eyebrow">04 / skills</div>
+    <h2 class="reveal">Stack &amp; tools</h2>
+    <div class="skills-table reveal">
+      <div class="skill-row">
+        <div class="skill-key">languages</div>
+        <div class="skill-val"><span class="chip">Java</span><span class="chip">Python</span><span class="chip">C++</span><span class="chip">JavaScript</span><span class="chip">TypeScript</span></div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-key">frameworks</div>
+        <div class="skill-val"><span class="chip">Spring Boot</span><span class="chip">Spring Data JPA</span><span class="chip">Hibernate</span><span class="chip">React.js</span></div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-key">cloud &amp; devops</div>
+        <div class="skill-val"><span class="chip">AWS EC2</span><span class="chip">AWS RDS</span><span class="chip">AWS S3</span><span class="chip">Docker</span><span class="chip">Kubernetes</span><span class="chip">Jenkins</span><span class="chip">CI/CD</span></div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-key">databases</div>
+        <div class="skill-val"><span class="chip">PostgreSQL</span><span class="chip">Oracle</span><span class="chip">Apache Solr</span><span class="chip">Elasticsearch</span><span class="chip">Kafka</span></div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-key">api development</div>
+        <div class="skill-val"><span class="chip">RESTful APIs</span><span class="chip">Microservices</span><span class="chip">OAuth2</span><span class="chip">JWT Auth</span></div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-key">tools</div>
+        <div class="skill-val"><span class="chip">IntelliJ IDEA</span><span class="chip">Eclipse</span><span class="chip">Git</span><span class="chip">Maven</span><span class="chip">JUnit 5</span><span class="chip">Mockito</span></div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-key">practices</div>
+        <div class="skill-val"><span class="chip">OOD</span><span class="chip">DSA</span><span class="chip">Clean Architecture</span><span class="chip">Agile / Scrum</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EDUCATION + LANGUAGES -->
+  <section id="education">
+    <div class="eyebrow">05 / education &amp; languages</div>
+    <div class="split">
+      <div class="reveal">
+        <h2 style="font-size:22px;margin-bottom:28px;">Education</h2>
+        <div class="edu-item">
+          <div class="deg">PG Diploma in Advanced Computing (PG-DAC)</div>
+          <div class="inst">Centre for Development of Advanced Computing</div>
+          <div class="meta">Pune, India · 02/2020 – 02/2021</div>
+        </div>
+        <div class="edu-item">
+          <div class="deg">B.E., Computer Engineering</div>
+          <div class="inst">Savitribai Phule Pune University</div>
+          <div class="meta">Pune, India · 05/2015 – 05/2019</div>
+        </div>
+      </div>
+      <div class="reveal">
+        <h2 style="font-size:22px;margin-bottom:28px;">Languages</h2>
+        <div class="lang-item">
+          <div class="lang-top"><span class="lname">English</span><span class="lvl">C1 · Fluent</span></div>
+          <div class="lang-bar"><div class="lang-fill" style="width:88%;"></div></div>
+        </div>
+        <div class="lang-item">
+          <div class="lang-top"><span class="lname">German</span><span class="lvl">Proficient</span></div>
+          <div class="lang-bar"><div class="lang-fill" style="width:70%;"></div></div>
+        </div>
+        <div class="lang-item">
+          <div class="lang-top"><span class="lname">Hindi</span><span class="lvl">Native</span></div>
+          <div class="lang-bar"><div class="lang-fill" style="width:100%;"></div></div>
+        </div>
+        <div class="lang-item">
+          <div class="lang-top"><span class="lname">Marathi</span><span class="lvl">Native</span></div>
+          <div class="lang-bar"><div class="lang-fill" style="width:100%;"></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="contact-section" style="border-bottom:none;">
+    <div class="eyebrow">06 / contact</div>
+    <div class="contact-inner">
+      <div class="reveal">
+        <h2>Let's build something reliable.</h2>
+        <p>Open to backend and full-stack engineering roles across Germany and remote-friendly teams. Reach out directly — I usually reply within a day.</p>
+        <a class="btn btn-primary" href="mailto:nikitaakhade34@gmail.com">nikitaakhade34@gmail.com</a>
+      </div>
+      <div class="contact-list reveal">
+        <div class="contact-row"><span class="clabel">location</span><span>Stuttgart, Germany</span></div>
+        <div class="contact-row"><span class="clabel">phone</span><span>015563910534</span></div>
+        <a class="contact-row" href="https://github.com/Nikita-Akhade" target="_blank" rel="noopener"><span class="clabel">github</span><span>@Nikita-Akhade ↗</span></a>
+        <a class="contact-row" id="linkedin-row" href="#" target="_blank" rel="noopener"><span class="clabel">linkedin</span><span>/in/nikita-akhade ↗</span></a>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<footer>© 2026 Nikita Akhade · built with Spring Boot energy and pure HTML/CSS</footer>
+
+<script>
+  // set linkedin url in one place (edit LINKEDIN_URL below if needed)
+  const LINKEDIN_URL = "https://www.linkedin.com/in/nikita-akhade";
+  document.getElementById('linkedin-link').href = LINKEDIN_URL;
+  document.getElementById('linkedin-row').href = LINKEDIN_URL;
+
+  // typing JSON hero
+  const jsonBody = document.getElementById('json-body');
+  const html = `<img class="avatar" src="profile.jpg" alt="Nikita Akhade">` +
+    `<span class="punc">{</span>\n` +
+    `<span class="indent"><span class="k">"name"</span><span class="punc">:</span> <span class="s">"Nikita Akhade"</span><span class="punc">,</span></span>\n` +
+    `<span class="indent"><span class="k">"role"</span><span class="punc">:</span> <span class="s">"Java Backend Developer"</span><span class="punc">,</span></span>\n` +
+    `<span class="indent"><span class="k">"experience"</span><span class="punc">:</span> <span class="v">"4+ years"</span><span class="punc">,</span></span>\n` +
+    `<span class="indent"><span class="k">"stack"</span><span class="punc">:</span> <span class="punc">[</span><span class="s">"Java"</span><span class="punc">,</span> <span class="s">"Spring Boot"</span><span class="punc">,</span> <span class="s">"PostgreSQL"</span><span class="punc">,</span> <span class="s">"AWS"</span><span class="punc">]</span><span class="punc">,</span></span>\n` +
+    `<span class="indent"><span class="k">"location"</span><span class="punc">:</span> <span class="s">"Stuttgart, DE"</span><span class="punc">,</span></span>\n` +
+    `<span class="indent"><span class="k">"status"</span><span class="punc">:</span> <span class="s">"open_to_work"</span></span>\n` +
+    `<span class="punc">}</span><span class="cursor"></span>`;
+  jsonBody.innerHTML = html;
+
+  // scroll reveal
+  const observer = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); observer.unobserve(e.target);} });
+  },{threshold:0.15});
+  document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+</script>
+
+</body>
+</html>
